@@ -1,7 +1,11 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package rest;
 
-import entities.Student;
-import utils.EMF_Creator;
+import entities.Joke;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
 import io.restassured.parsing.Parser;
@@ -18,15 +22,15 @@ import static org.hamcrest.Matchers.equalTo;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import utils.EMF_Creator.DbSelector;
-import utils.EMF_Creator.Strategy;
+import utils.EMF_Creator;
 
-//Uncomment the line below, to temporarily disable this test
-//@Disabled
-public class StudentResourceTest {
-
+/**
+ *
+ * @author Jeppe
+ */
+public class JokeResourseTest {
+    
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
     //Read this line from a settings-file  since used several places
@@ -43,7 +47,7 @@ public class StudentResourceTest {
 
     @BeforeAll
     public static void setUpClass() {
-        emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST, Strategy.CREATE);
+        emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.TEST, EMF_Creator.Strategy.CREATE);
 
         //NOT Required if you use the version of EMF_Creator.createEntityManagerFactory used above        
         //System.setProperty("IS_TEST", TEST_DB);
@@ -71,11 +75,14 @@ public class StudentResourceTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("Student.deleteAllRows").executeUpdate();
-            em.createNativeQuery("ALTER TABLE ka1_test.STUDENT AUTO_INCREMENT = 1").executeUpdate();
-            em.persist(new Student("Jeppe", "cph-xx34", "Yellow"));
-            em.persist(new Student("Joshua", "cph-xx12", "Green"));
-            em.persist(new Student("Ulrik", "cph-uh76", "Yellow"));
+            em.createNamedQuery("Joke.deleteAllRows").executeUpdate();
+            em.createNativeQuery("ALTER TABLE ka1_test.JOKE AUTO_INCREMENT = 1").executeUpdate();
+            em.persist(new Joke("Why do Java programmers wear glasses? Cause they don't C#", 
+                    "https://www.reddit.com/r/Jokes/comments/1k0tv1/why_do_java_programmers_wear_glasses", "Programmer Joke"));
+            em.persist(new Joke("Database SQL walked into a NoSQL bar. A little while later they walked out, Because they couldn't find a table!", 
+                    "https://twitter.com/code4startups?lang=da", "Programmer Joke"));
+            em.persist(new Joke("A journalist asked a programmer: What makes a code bad? No Comment.",
+                    "https://www.freelancinggig.com/blog/2018/12/15/5-hilarious-programming-jokes-for-programmers", "Programmer Joke"));
             em.flush();
            
             em.getTransaction().commit();
@@ -87,7 +94,7 @@ public class StudentResourceTest {
     @Test
     public void testServerIsUp() {
         System.out.println("Testing is server UP");
-        given().when().get("/student").then().statusCode(200);
+        given().when().get("/joke").then().statusCode(200);
     }
    
     //This test assumes the database contains two rows
@@ -95,7 +102,7 @@ public class StudentResourceTest {
     public void testDummyMsg() throws Exception {
         given()
         .contentType("application/json")
-        .get("/student/").then()
+        .get("/joke/").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
         .body("msg", equalTo("Hello World"));   
@@ -115,20 +122,22 @@ public class StudentResourceTest {
     public void testAll() throws Exception {
         given()
         .contentType("application/json")
-        .get("/student/all").then()
+        .get("/joke/all").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("name", Matchers.hasItems("Ulrik", "Jeppe", "Joshua"));
+        .body("joke", Matchers.hasItems("Why do Java programmers wear glasses? Cause they don't C#", 
+                "Database SQL walked into a NoSQL bar. A little while later they walked out, Because they couldn't find a table!", 
+                "A journalist asked a programmer: What makes a code bad? No Comment."));
     }
     
-  /*  @Test
+   /* @Test
     public void testId() throws Exception {
         given()
         .contentType("application/json")
-        .get("/student/{id}", 3)
+        .get("/joke/{id}", 3)
         .then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("name", equalTo("Ulrik"));
+        .body("joke", equalTo("A journalist asked a programmer: What makes a code bad? No Comment."));
     } */
 }

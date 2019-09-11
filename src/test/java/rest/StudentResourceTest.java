@@ -13,6 +13,7 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.grizzly.http.util.HttpStatus;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.hamcrest.Matchers;
 import static org.hamcrest.Matchers.equalTo;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -75,6 +76,7 @@ public class StudentResourceTest {
             em.persist(new Student("Jeppe", "cph-xx34", "Yellow"));
             em.persist(new Student("Joshua", "cph-xx12", "Green"));
             em.persist(new Student("Ulrik", "cph-uh76", "Yellow"));
+            em.flush();
            
             em.getTransaction().commit();
         } finally {
@@ -99,13 +101,34 @@ public class StudentResourceTest {
         .body("msg", equalTo("Hello World"));   
     }
     
+//    @Test
+//    public void testCount() throws Exception {
+//        given()
+//        .contentType("application/json")
+//        .get("/student/count").then()
+//        .assertThat()
+//        .statusCode(HttpStatus.OK_200.getStatusCode())
+//        .body("count", equalTo(3));   
+//    }
+    
     @Test
-    public void testCount() throws Exception {
+    public void testAll() throws Exception {
         given()
         .contentType("application/json")
-        .get("/student/count").then()
+        .get("/student/all").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("count", equalTo(3));   
+        .body("name", Matchers.hasItems("Ulrik", "Jeppe", "Joshua"));
+    }
+    
+    @Test
+    public void testId() throws Exception {
+        given()
+        .contentType("application/json")
+        .get("/student/{id}", 3)
+        .then()
+        .assertThat()
+        .statusCode(HttpStatus.OK_200.getStatusCode())
+        .body("name", equalTo("Ulrik"));
     }
 }

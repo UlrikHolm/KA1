@@ -65,6 +65,7 @@ public class StudentFacadeTest {
             em.persist(new Student("Jeppe", "cph-xx34", "Yellow"));
             em.persist(new Student("Joshua", "cph-xx12", "Green"));
             em.persist(new Student("Ulrik", "cph-uh76", "Yellow"));
+            em.flush();
 
             em.getTransaction().commit();
         } finally {

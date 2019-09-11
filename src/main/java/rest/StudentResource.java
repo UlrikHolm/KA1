@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import entities.Student;
 import utils.EMF_Creator;
 import facades.StudentFacade;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -41,6 +42,22 @@ public class StudentResource {
         //System.out.println("--------------->"+count);
         return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
     }
+    
+    @Path("all")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getAllBankCustomers() {
+        List<Student> students = FACADE.getAllStudents();
+        return GSON.toJson(students);
+    }
+    
+    @GET
+    @Path("/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getStudentById(@PathParam("id") long id) {
+        return GSON.toJson(FACADE.getStudentById(id));
+    }
+
 
  
 }

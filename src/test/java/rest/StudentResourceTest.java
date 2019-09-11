@@ -121,14 +121,14 @@ public class StudentResourceTest {
         .body("name", Matchers.hasItems("Ulrik", "Jeppe", "Joshua"));
     }
     
-    @Test
-    public void testId() throws Exception {
-        given()
-        .contentType("application/json")
-        .get("/student/{id}", 3)
-        .then()
-        .assertThat()
-        .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("name", equalTo("Ulrik"));
-    }
+//    @Test
+//    public void testId() throws Exception {
+//        given()
+//        .contentType("application/json")
+//        .get("/student/{id}", 3)
+//        .then()
+//        .assertThat()
+//        .statusCode(HttpStatus.OK_200.getStatusCode())
+//        .body("name", equalTo("Ulrik"));
+//    }
 }

@@ -57,7 +57,4 @@ public class StudentResource {
     public String getStudentById(@PathParam("id") long id) {
         return GSON.toJson(FACADE.getStudentById(id));
     }
-
-
- 
 }

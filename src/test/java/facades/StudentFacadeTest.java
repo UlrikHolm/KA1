@@ -2,6 +2,7 @@ package facades;
 
 import utils.EMF_Creator;
 import entities.Student;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterAll;
@@ -60,8 +61,10 @@ public class StudentFacadeTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Student.deleteAllRows").executeUpdate();
-            em.persist(new Student("Some txt", "More text"));
-            em.persist(new Student("aaa", "bbb"));
+            em.createNativeQuery("ALTER TABLE ka1_test.STUDENT AUTO_INCREMENT = 1").executeUpdate();
+            em.persist(new Student("Jeppe", "cph-xx34", "Yellow"));
+            em.persist(new Student("Joshua", "cph-xx12", "Green"));
+            em.persist(new Student("Ulrik", "cph-uh76", "Yellow"));
 
             em.getTransaction().commit();
         } finally {
@@ -77,7 +80,21 @@ public class StudentFacadeTest {
     // TODO: Delete or change this method 
     @Test
     public void testAFacadeMethod() {
-        assertEquals(2, facade.getRenameMeCount(), "Expects two rows in the database");
+        assertEquals(3, facade.getRenameMeCount(), "Expects tree rows in the database");
     }
+    
+    @Test
+    public void testGetStudentById() {
+        long id = 2;
+        Student student = facade.getStudentById(id);
+        assertEquals("Joshua", student.getName());
+    } 
+    
+    @Test
+    public void testGetAllStudents() {
+        List<Student> result = facade.getAllStudents();
+        assertEquals(3, result.size());   
+    }  
+    
 
 }

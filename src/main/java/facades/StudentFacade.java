@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -34,6 +35,27 @@ public class StudentFacade {
 
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
+    }
+    
+    public Student getStudentById(long id){
+         EntityManager em = emf.createEntityManager();
+        try{
+            Student stud = em.find(Student.class, id);
+            return stud;
+        }finally {
+            em.close();
+        }
+    }
+    
+    public List<Student> getAllStudents() {
+    EntityManager em = emf.createEntityManager();
+        try{
+            TypedQuery<Student> query = 
+                       em.createQuery("Select s from Student s",Student.class);
+            return query.getResultList();
+        }finally {
+            em.close();
+        }
     }
     
     //TODO Remove/Change this before use

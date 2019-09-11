@@ -71,8 +71,10 @@ public class StudentResourceTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Student.deleteAllRows").executeUpdate();
-            em.persist(new Student("Some txt","More text"));
-            em.persist(new Student("aaa","bbb"));
+            em.createNativeQuery("ALTER TABLE ka1_test.STUDENT AUTO_INCREMENT = 1").executeUpdate();
+            em.persist(new Student("Jeppe", "cph-xx34", "Yellow"));
+            em.persist(new Student("Joshua", "cph-xx12", "Green"));
+            em.persist(new Student("Ulrik", "cph-uh76", "Yellow"));
            
             em.getTransaction().commit();
         } finally {
@@ -104,6 +106,6 @@ public class StudentResourceTest {
         .get("/student/count").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("count", equalTo(2));   
+        .body("count", equalTo(3));   
     }
 }

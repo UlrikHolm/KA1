@@ -1,18 +1,30 @@
-console.log('hello from new project');
-const persons = ["Henrik","Helge","Hans","Holger"];
-const root = document.getElementById('root');
-const btn1 = document.getElementById('btn1');
-btn1.onclick = function(){
-    const url = 'https://api.chucknorris.io/jokes/random';    
-    //const p = persons.map(function(el){return '<li>' + el + '</li>'});
-    //const p = persons.map(el=>'<li>'+ el + '</li>');
-    //console.log('Jeg blev klikket');
-    //root.innerHTML = '<ul>' + p.join(""); + '</ul>'
+var navbar = '\
+<div class="container">\
+  <a class="navbar-brand" href="#">JJU Group</a>\
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">\
+    <span class="navbar-toggler-icon"></span>\
+  </button>\
+  <div class="collapse navbar-collapse" id="navbarResponsive">\
+    <ul class="navbar-nav ml-auto">\
+      <li class="nav-item active">\
+        <a class="nav-link" href="#">Home\
+          <span class="sr-only">(current)</span>\
+        </a>\
+      </li>\
+      <li class="nav-item">\
+        <a class="nav-link" href="#">Who did what</a>\
+      </li>\
+      <li class="nav-item">\
+        <a class="nav-link" href="#">Cool Joke</a>\
+      </li>\
+      <li class="nav-item">\
+        <a class="nav-link" href="#">Github Repo</a>\
+      </li>\
+      <li class="nav-item">\
+            <a class="nav-link" href="#">Car Sale</a>\
+        </li>\
+    </ul>\
+  </div>\
+</div>'
 
-    fetch(url)
-    .then(function(response){return response.json()})
-    .then(function(data){
-        root.innerHTML = data.value
-    });
-}
-
+document.getElementById("nav").innerHTML=navbar;

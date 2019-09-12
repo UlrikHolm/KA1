@@ -10,7 +10,7 @@ var jokeTable = document.getElementById('joke_table');
 
 
 
-let url = 'https://jjugroup.ga/KA1/api/joke/all';
+let url = 'http://localhost:8080/ka1/api/joke/all';
 fetch(url)
     .then(res => res.json())
     .then(data => {

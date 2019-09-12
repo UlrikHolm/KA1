@@ -9,8 +9,8 @@ var memberTable = document.getElementById('member_table');
 //</tr>'
 
 
-
-let url = 'http://localhost:8080/ka1/api/student/all';
+//http://localhost:8080/ka1/api/student/all
+let url = 'https://jjugroup.ga/KA1/api/student/all';
 fetch(url)
     .then(res => res.json())
     .then(data => {

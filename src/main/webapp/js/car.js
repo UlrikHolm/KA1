@@ -39,15 +39,18 @@ let url = 'http://localhost:8080/ka1/api/student/all';
 var filteredcars = cars;
 
 btn1.onclick = function(){
-    var input = document.getElementById("input1").value;
-if (input === ''){
-    alert('Please enter something!')
+    var inputFrom = document.getElementById("input1").value;
+    var inputTo = document.getElementById("input2").value;
+if (inputFrom === '' || inputTo === ''){
+    if(inputFrom === ''){
+    alert('Please enter min price!')
+    }if (inputTo === ''){
+    alert('Please enter max price!')
+    }
 } else {
-    filteredcars = cars.filter(function(el){return el.price <= input});
+    filteredcars = cars.filter(function(el){return el.price >= inputFrom && el.price <= inputTo});
     carTable.innerHTML = mapper(filteredcars);
 }
-/*     filteredcars = cars.filter(function(el){return el.price <= input});
-    carTable.innerHTML = mapper(filteredcars); */
 };
 
 function sorter(sortBy){

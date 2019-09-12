@@ -60,7 +60,7 @@ private static EntityManagerFactory emf;
             em.getTransaction().begin();
             em.createNamedQuery("Joke.deleteAllRows").executeUpdate();
             em.createNativeQuery("ALTER TABLE ka1_test.JOKE AUTO_INCREMENT = 1").executeUpdate();
-            em.persist(new Joke("Why do Java programmers wear glasses? Cause they don't C#", "https://www.reddit.com/r/Jokes/comments/1k0tv1/why_do_java_programmers_wear_glasses", "Programmer Joke"));
+            em.persist(new Joke("Why do Java programmers wear glasses? Cause they dont C#", "https://www.reddit.com/r/Jokes/comments/1k0tv1/why_do_java_programmers_wear_glasses", "Programmer Joke"));
             em.persist(new Joke("Database SQL walked into a NoSQL bar. A little while later they walked out, Because they couldn't find a table!", "https://twitter.com/code4startups?lang=da", "Programmer Joke"));
             em.persist(new Joke("A journalist asked a programmer: What makes a code bad? No Comment.", "https://www.freelancinggig.com/blog/2018/12/15/5-hilarious-programming-jokes-for-programmers", "Programmer Joke"));
             em.flush();

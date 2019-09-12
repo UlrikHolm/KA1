@@ -12,16 +12,16 @@ var navbar = '\
         </a>\
       </li>\
       <li class="nav-item">\
-        <a class="nav-link" href="#">Who did what</a>\
+        <a class="nav-link" href="wdw.html">Who did what</a>\
       </li>\
       <li class="nav-item">\
-        <a class="nav-link" href="#">Cool Joke</a>\
+        <a class="nav-link" href="joke.html">Cool Joke</a>\
       </li>\
       <li class="nav-item">\
-        <a class="nav-link" href="#">Github Repo</a>\
+        <a class="nav-link" href="https://github.com/UlrikHolm/KA1">Github Repo</a>\
       </li>\
       <li class="nav-item">\
-            <a class="nav-link" href="#">Car Sale</a>\
+            <a class="nav-link" href="car.html">Car Sale</a>\
         </li>\
     </ul>\
   </div>\

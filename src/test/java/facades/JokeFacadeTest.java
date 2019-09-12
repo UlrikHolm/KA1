@@ -6,7 +6,6 @@
 package facades;
 
 import entities.Joke;
-import facades.JokeFacade;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

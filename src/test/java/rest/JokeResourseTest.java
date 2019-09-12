@@ -77,7 +77,7 @@ public class JokeResourseTest {
             em.getTransaction().begin();
             em.createNamedQuery("Joke.deleteAllRows").executeUpdate();
             em.createNativeQuery("ALTER TABLE ka1_test.JOKE AUTO_INCREMENT = 1").executeUpdate();
-            em.persist(new Joke("Why do Java programmers wear glasses? Cause they don't C#", 
+            em.persist(new Joke("Why do Java programmers wear glasses? Cause they dont C#", 
                     "https://www.reddit.com/r/Jokes/comments/1k0tv1/why_do_java_programmers_wear_glasses", "Programmer Joke"));
             em.persist(new Joke("Database SQL walked into a NoSQL bar. A little while later they walked out, Because they couldn't find a table!", 
                     "https://twitter.com/code4startups?lang=da", "Programmer Joke"));
@@ -125,9 +125,7 @@ public class JokeResourseTest {
         .get("/joke/all").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("joke", Matchers.hasItems("Why do Java programmers wear glasses? Cause they don't C#", 
-                "Database SQL walked into a NoSQL bar. A little while later they walked out, Because they couldn't find a table!", 
-                "A journalist asked a programmer: What makes a code bad? No Comment."));
+        .body("joke", Matchers.hasItems("Why do Java programmers wear glasses? Cause they dont C#","Database SQL walked into a NoSQL bar. A little while later they walked out, Because they couldn't find a table!","A journalist asked a programmer: What makes a code bad? No Comment."));
     }
     
    /* @Test

@@ -15,11 +15,11 @@ fetch(url)
     .then(res => res.json())
     .then(data => {
         var i;
-        for (i = 0;  data.length; i++) {
+        for (i = 0; i < data.length; i++) {
             
             memberTable.innerHTML += '<tr><td>' + data[i].name +'</td>\
             <td>' + data[i].studentID + '</td>\
-            <td>' + data[i].color + '</td>'
+            <td>' + data[i].color + '</td></tr>'
             console.log(data.length);
         }
     } )

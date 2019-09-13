@@ -9,7 +9,10 @@ import entities.Joke;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.FlushModeType;
 import org.apache.commons.lang3.StringUtils;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -68,8 +71,6 @@ private static EntityManagerFactory emf;
             em.persist(joke1);
             em.persist(joke2);
             em.persist(joke3);
-            em.flush();
-
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -81,20 +82,16 @@ private static EntityManagerFactory emf;
 //        Remove any data after each test was run
     }
 
-    // TODO: Delete or change this method 
     @Test
     public void testAFacadeMethod() {
         assertEquals(3, facade.getJokeCount(), "Expects tree rows in the database");
     }
-    
-    //TODO: Testen fejler på travis da em sætter ind tilfældningt.
-    
-//    @Test
-//    public void testGetStudentById() {
-//        long id = 2;
-//        Student student = facade.getStudentById(id);
-//        assertEquals("Joshua", student.getName());
-//    } 
+     
+    @Test
+    public void testGetJokeById() {
+        Joke joke = facade.getJokeById(joke2.getId());
+        assertThat(joke.getJoke(), containsString("Database SQL walked into a NoSQL bar. A little while later they walked out, Because they couldn't find a table!"));
+    } 
     
     @Test
     public void testGetAllJokes() {

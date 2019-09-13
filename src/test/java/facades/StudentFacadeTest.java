@@ -5,6 +5,7 @@ import entities.Student;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.FlushModeType;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -58,6 +59,8 @@ public class StudentFacadeTest {
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
+        em.setFlushMode(FlushModeType.COMMIT);
+        
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Student.deleteAllRows").executeUpdate();
@@ -86,12 +89,12 @@ public class StudentFacadeTest {
     
     //TODO: Testen fejler på travis da em sætter ind tilfældningt.
     
-//    @Test
-//    public void testGetStudentById() {
-//        long id = 2;
-//        Student student = facade.getStudentById(id);
-//        assertEquals("Joshua", student.getName());
-//    } 
+    @Test
+    public void testGetStudentById() {
+        long id = 2;
+        Student student = facade.getStudentById(id);
+        assertEquals("Joshua", student.getName());
+    } 
     
     @Test
     public void testGetAllStudents() {

@@ -9,19 +9,19 @@ import javax.persistence.NamedQuery;
 
 
 @Entity
-@NamedQuery(name = "Student.deleteAllRows", query = "DELETE from Student")
+@NamedQuery(name = "Car.deleteAllRows", query = "DELETE from Car")
 public class Car implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String year;
+    private int year;
     private String make;
     private String model;
     private int price;
 
-    public Car(String year, String make, String model, int price) {
+    public Car(int year, String make, String model, int price) {
         this.year = year;
         this.make = make;
         this.model = model;
@@ -31,7 +31,7 @@ public class Car implements Serializable {
     public Car() {
     }
 
-    public String getYear() {
+    public int getYear() {
         return year;
     }
 

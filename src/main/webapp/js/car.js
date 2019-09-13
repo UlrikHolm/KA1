@@ -1,13 +1,15 @@
+var url = 'https://jjugroup.ga/KA1/api/car/'
+//'https://jjugroup.ga/KA1/api/car/'
 
 var carTable = document.getElementById('car_table');
 
-var cars = [
+/* var cars = [
     { id: 1, year: 1997, make: 'Ford', model: 'E350', price: 3000 },
     { id: 2, year: 1999, make: 'Chevy', model: 'Venture', price: 4900 },
     { id: 3, year: 2000, make: 'Chevy', model: 'Venture', price: 5000 },
     { id: 4, year: 1996, make: 'Jeep', model: 'Grand Cherokee', price: 4799 },
     { id: 5, year: 2005, make: 'Volvo', model: 'V70', price: 44799 }
-  ];
+  ]; */
 
 function mapper(array){
 
@@ -19,22 +21,21 @@ function mapper(array){
     return c.join('');
 }
 
+var cars;
 //console.log(mapper(cars))
-carTable.innerHTML = mapper(cars);
+//carTable.innerHTML = mapper(cars);
+window.onload = allCars;
+var urlAll = url + 'all';
 
-let url = 'http://localhost:8080/ka1/api/student/all';
-/* fetch(url)
+function allCars(){
+fetch(urlAll)
     .then(res => res.json())
-    .then(data => { */
-/*         var i;
-        for (i = 0; i < cars.length; i++) {
-            carTable.innerHTML += '<tr><td>' + cars[i].id +'</td>\
-            <td>' + cars[i].year + '</td>\
-            <td>' + cars[i].make + '</td>\
-            <td>' + cars[i].model + '</td>\
-            <td>' + cars[i].price + '</td></tr>'
-        } */
-/*     } ) */
+    .then(data => {
+        carTable.innerHTML = mapper(data);
+        cars = data;
+        filteredcars = cars;
+        });
+    };
 
 var filteredcars = cars;
 
@@ -77,4 +78,27 @@ btn2.onclick = function(){
     //console.log(cars.sort(dynamicSort(selectedSort)));
 
     //console.log(selectedSort);
+    
 };
+
+
+btn3.onclick = function(){
+    var inputMake = document.getElementById("input3").value;
+    if(inputMake === ''){
+    alert('Please enter make')
+    }
+     else {
+        var urlMake = url + 'make/' + inputMake;
+        fetch(urlMake)
+        .then(res => res.json())
+        .then(data => {
+        carTable.innerHTML = mapper(data);
+        cars = data;
+        filteredcars = cars;
+        });
+
+    carTable.innerHTML = mapper(filteredcars);
+}
+};
+
+btn4.onclick = allCars;

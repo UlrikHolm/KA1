@@ -1,13 +1,14 @@
+var url = 'http://localhost:8080/ka1/api/car/'
 
 var carTable = document.getElementById('car_table');
 
-var cars = [
+/* var cars = [
     { id: 1, year: 1997, make: 'Ford', model: 'E350', price: 3000 },
     { id: 2, year: 1999, make: 'Chevy', model: 'Venture', price: 4900 },
     { id: 3, year: 2000, make: 'Chevy', model: 'Venture', price: 5000 },
     { id: 4, year: 1996, make: 'Jeep', model: 'Grand Cherokee', price: 4799 },
     { id: 5, year: 2005, make: 'Volvo', model: 'V70', price: 44799 }
-  ];
+  ]; */
 
 function mapper(array){
 
@@ -19,22 +20,17 @@ function mapper(array){
     return c.join('');
 }
 
+var cars;
 //console.log(mapper(cars))
-carTable.innerHTML = mapper(cars);
+//carTable.innerHTML = mapper(cars);
 
-let url = 'http://localhost:8080/ka1/api/student/all';
-/* fetch(url)
+var urlAll = url + 'all';
+fetch(urlAll)
     .then(res => res.json())
-    .then(data => { */
-/*         var i;
-        for (i = 0; i < cars.length; i++) {
-            carTable.innerHTML += '<tr><td>' + cars[i].id +'</td>\
-            <td>' + cars[i].year + '</td>\
-            <td>' + cars[i].make + '</td>\
-            <td>' + cars[i].model + '</td>\
-            <td>' + cars[i].price + '</td></tr>'
-        } */
-/*     } ) */
+    .then(data => {
+        carTable.innerHTML = mapper(data);
+        cars = data;
+        });
 
 var filteredcars = cars;
 

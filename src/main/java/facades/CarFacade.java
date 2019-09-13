@@ -69,17 +69,14 @@ public class CarFacade {
         }   
     }
 
-    public String getCarMake(String make){
+    public List<Car> getCarMake(String make){
         EntityManager em = emf.createEntityManager();
-        try{
-            TypedQuery<Car> query =
-                        em.createQuery("SELECT MAKE(c) FROM Car c").getResultList();
-            return query.getResultList();
+        try {
+            TypedQuery<Car> car_make = em.createQuery("SELECT c FROM Car c WHERE c.make = :make", Car.class);
+            return car_make.getResultList();
         } finally {
             em.close();
         }
-
-
     }
 
 }

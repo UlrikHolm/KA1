@@ -21,9 +21,8 @@
   <div class="container bg-light">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h1 class="mt-5">Our Cool Jokes</h1>
-            <ul class="list-unstyled">
-            </ul>
+            <h1 class="mt-5">Cool Jokes</h1>
+            <p class="lead">Funny jokes for everyone!</p>
             <p>Jokes (loaded from a REST API)</p>
           </div>
         </div>
@@ -40,13 +39,16 @@
             </tbody>
           </table>
         </div>
-        <br>
-        <div class="row">
-        <button type="button" class="btn btn-success" id="btn1">Random Joke</button>
+        <div class="row justify-content-center">
           <blockquote class="blockquote text-center">
             <p class="mb-0" id="joke"></p>
-            <footer class="blockquote-footer" id="source"></footer>
+            <p><em class="text-secondary small" id="source"></em></p>
           </blockquote>
+        </div>
+        <div class="row justify-content-center">
+          <button type="button" class="btn btn-success" id="btn1">Random Joke</button>
+        </div>
+        <div class="row">
         </div>
       </div>
 

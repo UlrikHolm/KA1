@@ -21,9 +21,8 @@
   <div class="container bg-light">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h1 class="mt-5">Our Cool Jokes</h1>
-            <ul class="list-unstyled">
-            </ul>
+            <h1 class="mt-5">Cool Jokes</h1>
+            <p class="lead">Funny jokes for everyone!</p>
             <p>Jokes (loaded from a REST API)</p>
           </div>
         </div>
@@ -40,13 +39,30 @@
             </tbody>
           </table>
         </div>
-        <div class="row">
-        <button type="button" class="btn btn-success" id="btn1">Random Joke</button>
-          <blockquote class="blockquote text-center">
-            <p class="mb-0" id="joke"></p>
-            <footer class="blockquote-footer" id="source"></footer>
-          </blockquote>
-        </div>
+    
+          <div class="row justify-content-center" >
+            <div class="col-4"></div>
+            <div class="col-4">
+          <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Joke ID" id="ij">
+            <div class="input-group-append">
+              <button class="btn btn-outline-success" type="button" id="btn2">Joke by ID</button>
+            </div>
+            <div class="input-group-append">
+                <button class="btn btn-outline-warning" type="button" id="btn1">Random Joke</button>
+            </div>
+          </div>
+            </div>
+          <div class="col-4"></div>
+          </div>
+
+          <div class="row justify-content-center">
+              <blockquote class="blockquote text-center">
+                <p class="mb-0" id="randJoke"></p>
+                <p><em class="text-secondary small" id="source"></em></p>
+              </blockquote>
+            </div>
+
       </div>
 
     <!-- Optional JavaScript -->

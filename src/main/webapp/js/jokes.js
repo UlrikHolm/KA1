@@ -1,16 +1,8 @@
-
 var jokeTable = document.getElementById('joke_table');
 var joke = document.getElementById('joke');
 var source = document.getElementById('source');
 var btn1 = document.getElementById('btn1');
 var url = 'https://jjugroup.ga/KA1/api/joke/';
-
-//'<tr>\
-//    <th scope="row">1</th>\
-//    <td></td>\
-//    <td>Otto</td>\
-//    <td>@mdo</td>\
-//</tr>'
 
 
 //http://localhost:8080/ka1/api/joke/all
@@ -33,18 +25,20 @@ fetch(urlAll)
     let urlRand = url+"random";
     fetch(urlRand)
     .then(res => res.json())
-    .then(dataJoke => {
+    .then(dataJokeR => {
       
-            joke.innerHTML = dataJoke.joke;
-            source.innerHTML = dataJoke.reference;
+        randJoke.innerHTML = dataJokeR.joke;
+        source.innerHTML = dataJokeR.reference;
     } )}
 
 //http://localhost:8080/ka1/api/joke/
-    btn1.onclick = function(){
-        let urlInput = url+input;
+    btn2.onclick = function(){
+        var inputJ = document.getElementById("ij").value;
+        let urlInput = url+inputJ;
         fetch(urlInput)
         .then(res => res.json())
         .then(dataJoke => {
           
-                joke.innerHTML = dataJoke.joke;
+            randJoke.innerHTML = dataJoke.joke;
+            source.innerHTML = dataJoke.reference;
         } )}

@@ -5,6 +5,9 @@ import entities.Student;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import org.hamcrest.MatcherAssert;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,7 +24,10 @@ public class StudentFacadeTest {
 
     private static EntityManagerFactory emf;
     private static StudentFacade facade;
-
+    Student s1 = (new Student("Jeppe", "cph-xx34", "Yellow"));
+    Student s2 = (new Student("Joshua", "cph-xx12", "Green"));
+    Student s3 = (new Student("Ulrik", "cph-uh76", "Yellow"));
+    
     public StudentFacadeTest() {
     }
 
@@ -62,11 +68,9 @@ public class StudentFacadeTest {
             em.getTransaction().begin();
             em.createNamedQuery("Student.deleteAllRows").executeUpdate();
             em.createNativeQuery("ALTER TABLE ka1_test.STUDENT AUTO_INCREMENT = 1").executeUpdate();
-            em.persist(new Student("Jeppe", "cph-xx34", "Yellow"));
-            em.persist(new Student("Joshua", "cph-xx12", "Green"));
-            em.persist(new Student("Ulrik", "cph-uh76", "Yellow"));
-            em.flush();
-
+            em.persist(s1);
+            em.persist(s2);
+            em.persist(s3);
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -83,15 +87,12 @@ public class StudentFacadeTest {
     public void testAFacadeMethod() {
         assertEquals(3, facade.getRenameMeCount(), "Expects tree rows in the database");
     }
-    
-    //TODO: Testen fejler på travis da em sætter ind tilfældningt.
-    
-//    @Test
-//    public void testGetStudentById() {
-//        long id = 2;
-//        Student student = facade.getStudentById(id);
-//        assertEquals("Joshua", student.getName());
-//    } 
+        
+    @Test
+    public void testGetStudentById() {
+        Student s = facade.getStudentById(s2.getId());
+        assertThat(s.getName(), containsString("Joshua"));
+    } 
     
     @Test
     public void testGetAllStudents() {

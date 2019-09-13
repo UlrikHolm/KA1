@@ -40,7 +40,7 @@ public class JokeResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getRenameMeCount() {
-        long count = FACADE.getRenameMeCount();
+        long count = FACADE.getJokeCount();
         //System.out.println("--------------->"+count);
         return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
     }
@@ -59,7 +59,13 @@ public class JokeResource {
     public String getJokesById(@PathParam("id") long id) {
         return GSON.toJson(FACADE.getJokeById(id));
     }
-
+    
+    @GET
+    @Path("random")
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getRandomJoke(){
+        return GSON.toJson(FACADE.getRandomJoke());
+    }
 
  
 }

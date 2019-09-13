@@ -6,13 +6,14 @@
 package facades;
 
 import entities.Joke;
-import facades.JokeFacade;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,6 +54,10 @@ private static EntityManagerFactory emf;
 
     // Setup the DataBase in a known state BEFORE EACH TEST
     //TODO -- Make sure to change the script below to use YOUR OWN entity class
+    Joke joke1 = new Joke("Why do Java programmers wear glasses? Cause they dont C#", "https://www.reddit.com/r/Jokes/comments/1k0tv1/why_do_java_programmers_wear_glasses", "Programmer Joke");
+    Joke joke2 = new Joke("Database SQL walked into a NoSQL bar. A little while later they walked out, Because they couldn't find a table!", "https://twitter.com/code4startups?lang=da", "Programmer Joke");
+    Joke joke3 = new Joke("A journalist asked a programmer: What makes a code bad? No Comment.", "https://www.freelancinggig.com/blog/2018/12/15/5-hilarious-programming-jokes-for-programmers", "Programmer Joke");
+    
     @BeforeEach
     public void setUp() {
         EntityManager em = emf.createEntityManager();
@@ -60,9 +65,9 @@ private static EntityManagerFactory emf;
             em.getTransaction().begin();
             em.createNamedQuery("Joke.deleteAllRows").executeUpdate();
             em.createNativeQuery("ALTER TABLE ka1_test.JOKE AUTO_INCREMENT = 1").executeUpdate();
-            em.persist(new Joke("Why do Java programmers wear glasses? Cause they dont C#", "https://www.reddit.com/r/Jokes/comments/1k0tv1/why_do_java_programmers_wear_glasses", "Programmer Joke"));
-            em.persist(new Joke("Database SQL walked into a NoSQL bar. A little while later they walked out, Because they couldn't find a table!", "https://twitter.com/code4startups?lang=da", "Programmer Joke"));
-            em.persist(new Joke("A journalist asked a programmer: What makes a code bad? No Comment.", "https://www.freelancinggig.com/blog/2018/12/15/5-hilarious-programming-jokes-for-programmers", "Programmer Joke"));
+            em.persist(joke1);
+            em.persist(joke2);
+            em.persist(joke3);
             em.flush();
 
             em.getTransaction().commit();
@@ -79,7 +84,7 @@ private static EntityManagerFactory emf;
     // TODO: Delete or change this method 
     @Test
     public void testAFacadeMethod() {
-        assertEquals(3, facade.getRenameMeCount(), "Expects tree rows in the database");
+        assertEquals(3, facade.getJokeCount(), "Expects tree rows in the database");
     }
     
     //TODO: Testen fejler på travis da em sætter ind tilfældningt.
@@ -97,5 +102,11 @@ private static EntityManagerFactory emf;
         assertEquals(3, result.size());   
     }  
     
+    @Test
+    public void testGetRandomJoke() {
+        Joke joke = facade.getRandomJoke();
+        assertTrue(StringUtils.contains(joke1.getJoke() + joke2.getJoke() + joke3.getJoke(),joke.getJoke()));
+        System.out.println("#####" + joke.getJoke());
+    }
+    
 }
-

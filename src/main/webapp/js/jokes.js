@@ -1,5 +1,8 @@
 
 var jokeTable = document.getElementById('joke_table');
+var joke = document.getElementById('joke');
+var source = document.getElementById('source');
+var btn1 = document.getElementById('btn1');
 
 //'<tr>\
 //    <th scope="row">1</th>\
@@ -9,7 +12,7 @@ var jokeTable = document.getElementById('joke_table');
 //</tr>'
 
 
-
+//http://localhost:8080/ka1/api/joke/all
 let url = 'https://jjugroup.ga/KA1/api/joke/all';
 fetch(url)
     .then(res => res.json())
@@ -23,3 +26,14 @@ fetch(url)
             console.log(data.length);
         }
     } )
+
+//http://localhost:8080/ka1/api/joke/random
+    btn1.onclick = function(){
+    let urlJ = 'https://jjugroup.ga/KA1/api/joke/random';
+    fetch(urlJ)
+    .then(res => res.json())
+    .then(dataJoke => {
+      
+            joke.innerHTML = dataJoke.joke;
+            source.innerHTML = dataJoke.reference;
+    } )}

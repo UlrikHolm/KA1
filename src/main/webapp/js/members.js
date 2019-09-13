@@ -1,13 +1,6 @@
 
 var memberTable = document.getElementById('member_table');
 
-//'<tr>\
-//    <th scope="row">1</th>\
-//    <td></td>\
-//    <td>Otto</td>\
-//    <td>@mdo</td>\
-//</tr>'
-
 
 //http://localhost:8080/ka1/api/student/all
 let url = 'https://jjugroup.ga/KA1/api/student/all';

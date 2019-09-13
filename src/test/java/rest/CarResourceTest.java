@@ -76,6 +76,7 @@ public class CarResourceTest {
             em.createNamedQuery("Car.deleteAllRows").executeUpdate();
             em.createNativeQuery("ALTER TABLE ka1_test.CAR AUTO_INCREMENT = 1").executeUpdate();
             em.persist(new Car(1999, "Toyota", "Corolla", 15000));
+            em.persist(new Car(2000, "Toyota", "Swift", 1500));
             em.persist(new Car(2018, "VW", "Golf", 150000));
             em.persist(new Car(2004, "Opel", "Meriva", 45000));
             em.flush();
@@ -103,16 +104,6 @@ public class CarResourceTest {
         .body("msg", equalTo("Hello World"));   
     }
     
-//    @Test
-//    public void testCount() throws Exception {
-//        given()
-//        .contentType("application/json")
-//        .get("/student/count").then()
-//        .assertThat()
-//        .statusCode(HttpStatus.OK_200.getStatusCode())
-//        .body("count", equalTo(3));   
-//    }
-    
     @Test
     public void testAll() throws Exception {
         given()
@@ -122,15 +113,15 @@ public class CarResourceTest {
         .statusCode(HttpStatus.OK_200.getStatusCode())
         .body("model", Matchers.hasItems("Corolla","Golf","Meriva"));
     }
-    
-   /* @Test
-    public void testId() throws Exception {
+
+    @Test
+    public void testMake() throws Exception {
         given()
         .contentType("application/json")
-        .get("/joke/{id}", 3)
-        .then()
+        .get("/car/make/toyota").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("joke", equalTo("A journalist asked a programmer: What makes a code bad? No Comment."));
-    } */
+        .body("make", Matchers.hasItem("Toyota"));
+    }
+    
 }

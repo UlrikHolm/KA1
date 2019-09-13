@@ -1,4 +1,4 @@
-var url = 'http://localhost:8080/ka1/api/car/'
+var url = 'https://jjugroup.ga/KA1/api/car/'
 
 var carTable = document.getElementById('car_table');
 

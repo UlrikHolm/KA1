@@ -1,4 +1,5 @@
 var url = 'https://jjugroup.ga/KA1/api/car/'
+//'https://jjugroup.ga/KA1/api/car/'
 
 var carTable = document.getElementById('car_table');
 
@@ -23,14 +24,18 @@ function mapper(array){
 var cars;
 //console.log(mapper(cars))
 //carTable.innerHTML = mapper(cars);
-
+window.onload = allCars;
 var urlAll = url + 'all';
+
+function allCars(){
 fetch(urlAll)
     .then(res => res.json())
     .then(data => {
         carTable.innerHTML = mapper(data);
         cars = data;
+        filteredcars = cars;
         });
+    };
 
 var filteredcars = cars;
 
@@ -73,4 +78,27 @@ btn2.onclick = function(){
     //console.log(cars.sort(dynamicSort(selectedSort)));
 
     //console.log(selectedSort);
+    
 };
+
+
+btn3.onclick = function(){
+    var inputMake = document.getElementById("input3").value;
+    if(inputMake === ''){
+    alert('Please enter make')
+    }
+     else {
+        var urlMake = url + 'make/' + inputMake;
+        fetch(urlMake)
+        .then(res => res.json())
+        .then(data => {
+        carTable.innerHTML = mapper(data);
+        cars = data;
+        filteredcars = cars;
+        });
+
+    carTable.innerHTML = mapper(filteredcars);
+}
+};
+
+btn4.onclick = allCars;

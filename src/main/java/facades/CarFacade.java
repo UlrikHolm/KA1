@@ -40,8 +40,8 @@ public class CarFacade {
     public Car getCarById(long id){
          EntityManager em = emf.createEntityManager();
         try{
-            Car stud = em.find(Car.class, id);
-            return stud;
+            Car car = em.find(Car.class, id);
+            return car;
         }finally {
             em.close();
         }
@@ -66,8 +66,20 @@ public class CarFacade {
             return CarCount;
         }finally{  
             em.close();
+        }   
+    }
+
+    public String getCarMake(String make){
+        EntityManager em = emf.createEntityManager();
+        try{
+            TypedQuery<Car> query =
+                        em.createQuery("SELECT MAKE(c) FROM Car c").getResultList();
+            return query.getResultList();
+        } finally {
+            em.close();
         }
-        
+
+
     }
 
 }

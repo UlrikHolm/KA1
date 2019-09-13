@@ -22,10 +22,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utils.EMF_Creator;
 
-/**
- *
- * @author Jeppe
- */
 public class CarFacadeTest {
 private static EntityManagerFactory emf;
     private static CarFacade facade;

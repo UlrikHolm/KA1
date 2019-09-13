@@ -36,8 +36,8 @@ public class CarResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public String getAllCars() {
-        List<Car> joke = FACADE.getAllCars();
-        return GSON.toJson(joke);
+        List<Car> car = FACADE.getAllCars();
+        return GSON.toJson(car);
     }
 
     @Path("count")

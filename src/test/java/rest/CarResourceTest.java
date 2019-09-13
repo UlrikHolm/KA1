@@ -24,6 +24,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import utils.EMF_Creator;
+import utils.EMF_Creator.DbSelector;
+import utils.EMF_Creator.Strategy;
 
 public class CarResourceTest {
     
@@ -43,7 +45,7 @@ public class CarResourceTest {
 
     @BeforeAll
     public static void setUpClass() {
-        emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.TEST, EMF_Creator.Strategy.CREATE);
+        emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST, Strategy.CREATE);
 
         //NOT Required if you use the version of EMF_Creator.createEntityManagerFactory used above        
         //System.setProperty("IS_TEST", TEST_DB);
@@ -118,7 +120,7 @@ public class CarResourceTest {
         .get("/car/all").then()
         .assertThat()
         .statusCode(HttpStatus.OK_200.getStatusCode())
-        .body("car", Matchers.hasItems("Corolla","Golf","Meriva"));
+        .body("model", Matchers.hasItems("Corolla","Golf","Meriva"));
     }
     
    /* @Test

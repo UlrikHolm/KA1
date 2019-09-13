@@ -55,5 +55,12 @@ public class CarResource {
     public String getCarsById(@PathParam("id") long id) {
         return GSON.toJson(FACADE.getCarById(id));
     }
+
+    @GET
+    @Path("/make/{make}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getMake(@PathParam("make") String make) {
+        return GSON.toJson(FACADE.getCarMake(make));
+    }
  
 }
